@@ -16,14 +16,22 @@ local packer_bootstrap = ensure_packer()
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   
-  -- My plugins here
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.2',
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.2',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
+  use {
+    "briones-gabriel/darcula-solid.nvim",
+    requires = "rktjmp/lush.nvim"
+  }
+
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    { run = ':TSUpdate' }
+  }
+
   if packer_bootstrap then
     require('packer').sync()
   end
