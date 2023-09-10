@@ -1,3 +1,3 @@
-require("wohe.style")
 require("wohe.lazy")
+require("wohe.style")
 

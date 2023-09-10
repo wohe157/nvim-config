@@ -13,6 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     { import = "wohe.plugins" },
-    { import = "wohe.lsp" },
+    { import = "wohe.plugins.colorscheme" },
+    { import = "wohe.plugins.lsp" },
 })
 

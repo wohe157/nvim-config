@@ -1,6 +1,10 @@
 vim.opt.title = true -- Set terminal title to filename
 vim.opt.termguicolors = true -- Enable true color support
 
+-- Color scheme
+vim.opt.background = "dark"
+vim.cmd("colorscheme gruvbox")
+
 -- Navigation
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -20,8 +24,4 @@ vim.opt.showbreak = "↪ "
 -- Vertical rulers
 vim.cmd("autocmd FileType * setlocal colorcolumn=80")
 vim.cmd("autocmd FileType python setlocal colorcolumn=88")
-
--- Color scheme
-vim.opt.background = "dark"
-vim.cmd("colorscheme gruvbox")
 
