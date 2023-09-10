@@ -22,20 +22,6 @@ vim.cmd("autocmd FileType * setlocal colorcolumn=80")
 vim.cmd("autocmd FileType python setlocal colorcolumn=88")
 
 -- Color scheme
-vim.o.background = "dark"
-vim.cmd([[colorscheme gruvbox]])
-
--- File browser
-require("nvim-tree").setup({
-    sort_by = "case_sensitive",
-    view = {
-        width = 60,
-    },
-    renderer = {
-        group_empty = true,
-    },
-    filters = {
-        dotfiles = true,
-    },
-})
+vim.opt.background = "dark"
+vim.cmd("colorscheme gruvbox")
 
