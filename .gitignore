@@ -39,6 +39,6 @@ luac.out
 *.x86_64
 *.hex
 
-# Neovim specifics
-plugin/
+# Lazy.nvim specifics
+lazy-lock.json
 
