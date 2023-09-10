@@ -9,7 +9,7 @@ return {
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         local opts = { noremap = true, silent = true }
-        local on_attach = function(client, buffer)
+        local on_attach = function(_, buffer)
             opts.buffer = buffer
 
             -- set keybinds
@@ -79,7 +79,7 @@ return {
             "tsserver", -- Typescript
             "yamlls", -- YAML
         }
-        for i, name in ipairs(names) do
+        for _, name in ipairs(names) do
             lspconfig[name].setup({
                 capabilities = capabilities,
                 on_attach = on_attach,

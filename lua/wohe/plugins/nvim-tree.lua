@@ -18,6 +18,9 @@ return {
                 git_ignored = false,
             },
         })
+
+        vim.keymap.set("n", "<leader>et", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle file browser" })
+        vim.keymap.set("n", "<leader>ef", "<cmd>NvimTreeFocus<cr>", { desc = "Focus file browser" })
     end,
 }
 
