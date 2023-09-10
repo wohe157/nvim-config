@@ -1,4 +1,3 @@
-require("wohe.lazy")
 require("wohe.style")
-require("wohe.remap")
+require("wohe.lazy")
 
