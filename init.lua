@@ -12,6 +12,12 @@ require("config.lazy")
 vim.opt.number = true
 vim.opt.relativenumber = false
 
+-- Reserve a space in the gutter for symbols
+vim.opt.signcolumn = 'yes'
+
+-- Highlight the cursor line
+vim.opt.cursorline = true
+
 -- Tabs & indentation
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
@@ -32,7 +38,8 @@ vim.opt.backup = false
 vim.opt.undofile = true
 
 -- Wrapping
-vim.o.wrap = false
+vim.opt.wrap = false
+vim.opt.colorcolumn = "81"
 
 -- Key mappings
 vim.keymap.set('n', '<leader>qq', ":q<CR>", { desc = "Close buffer" })
