@@ -25,6 +25,6 @@ return {
             },
         })
 
-	    vim.keymap.set("n", "<leader>fe", "<Cmd>Neotree<CR>", { desc = "Tree" })
+	    vim.keymap.set("n", "<leader>fe", "<Cmd>Neotree<CR>", { desc = "Open file browser (Neotree)" })
     end,
 }
