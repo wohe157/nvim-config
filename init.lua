@@ -13,7 +13,7 @@ require("config.keymaps")
 
 -- Line numbers
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 -- Reserve a space in the gutter for symbols
 vim.opt.signcolumn = 'yes'
