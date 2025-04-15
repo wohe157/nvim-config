@@ -37,9 +37,9 @@ for i = 1, 9 do
 end
 
 -- Terminal actions
-vim.keymap.set("n", "<leader>xh", ":split | terminal<CR>",  { desc = "Open terminal (horizontal)" })
-vim.keymap.set("n", "<leader>xv", ":vsplit | terminal<CR>", { desc = "Open terminal (vertical)" })
-vim.keymap.set("n", "<leader>xt", ":tabnew | terminal<CR>", { desc = "Open terminal (tab)" })
+vim.keymap.set("n", "<leader>xx", ":split | terminal<CR>i",  { desc = "Open terminal (horizontal)" })
+vim.keymap.set("n", "<leader>xv", ":vsplit | terminal<CR>i", { desc = "Open terminal (vertical)" })
+vim.keymap.set("n", "<leader>xt", ":tabnew | terminal<CR>i", { desc = "Open terminal (tab)" })
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]],                { desc = "Exit terminal mode" })
 
 -- Move selected lines with Opt/Alt

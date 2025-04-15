@@ -49,3 +49,15 @@ vim.cmd.colorscheme("kanagawa")
 
 -- Use system clipboard
 vim.api.nvim_set_option("clipboard", "unnamed")
+
+-- Custom terminal settings
+vim.api.nvim_create_augroup("TerminalSettings", { clear = true })
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = "TerminalSettings",
+    pattern = "*",
+    callback = function()
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.opt_local.signcolumn = "no"
+    end,
+})
