@@ -9,6 +9,7 @@ return {
         })
 
         wk.add({
+            {"<leader>a", group = "ai"}
             {"<leader>b", group = "buffer"},
             {"<leader>f", group = "file"},
             {"<leader>l", group = "lsp"},
