@@ -1,3 +1,7 @@
+-- Fast moving
+vim.keymap.set({"n", "v"}, "<C-j>", "5j", { desc = "Jump 5 rows down" })
+vim.keymap.set({"n", "v"}, "<C-k>", "5k", { desc = "Jump 5 rows up" })
+
 -- Window splitting
 vim.keymap.set("n", "<leader>ws", "<C-w>s", { desc = "Split window horizontally" })
 vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })
