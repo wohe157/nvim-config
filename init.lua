@@ -21,6 +21,9 @@ vim.opt.signcolumn = 'yes'
 -- Highlight the cursor line
 vim.opt.cursorline = true
 
+-- Keep some space from the top and bottom while scrolling
+vim.opt.scrolloff = 15
+
 -- Tabs & indentation
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
