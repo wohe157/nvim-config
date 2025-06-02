@@ -52,6 +52,12 @@ vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 
+-- Indent/de-indent in visual and normal mode
+vim.keymap.set("n", "<Tab>", ">>", { noremap = true, silent = true, desc = "Indent line" })
+vim.keymap.set("n", "<S-Tab>", "<<", { noremap = true, silent = true, desc = "De-indent line" })
+vim.keymap.set("v", "<Tab>", ">gv", { noremap = true, silent = true, desc = "Indent selected block" })
+vim.keymap.set("v", "<S-Tab>", "<gv", { noremap = true, silent = true, desc = "De-indent selected block" })
+
 -- UI actions
 vim.keymap.set("n", "<leader>ud", function()
   if vim.diagnostic.is_enabled() then
