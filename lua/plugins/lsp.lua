@@ -1,63 +1,57 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        -- TODO: fix workaround (https://github.com/LazyVim/LazyVim/issues/6039)
-        { "mason-org/mason.nvim", version = "^1.0.0" },
-        { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
+        "hrsh7th/cmp-nvim-lsp",
+        { "mason-org/mason.nvim", opts = {} },
+        {
+            "mason-org/mason-lspconfig.nvim",
+            opts = {
+                ensure_installed = {
+                    "lua_ls",
+                    "pyright",
+                    "typos_lsp",
+                },
+            },
+        }
     },
     config = function()
-        -- Install LSPs
-        require("mason").setup({})
-        require("mason-lspconfig").setup({
-            ensure_installed = {
-                "lua_ls",
-                "pyright",
-                "typos_lsp",
-            },
-        })
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-        -- Configure LSPs
-        local lspconfig = require("lspconfig")
+        local on_attach = function(client, bufnr)
+            local function map(...)
+                vim.api.nvim_buf_set_keymap(bufnr, ...)
+            end
+            local function opts(desc)
+                return { noremap = true, silent = true, desc = desc }
+            end
 
-        lspconfig.lua_ls.setup({})
+            map("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts("Show documentation"))
+            map("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts("Previous diagnostic"))
+            map("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts("Next diagnostic"))
+            map("n", "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<cr>", opts("Go to definition"))
+            map("n", "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts("Go to declaration"))
+            map("n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts("Go to implementation"))
+            map("n", "<leader>lt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts("Go to type definition"))
+            map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.references()<cr>", opts("Show references"))
+            map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts("Show signature help"))
+            map("n", "<leader>lR", "<cmd>lua vim.lsp.buf.rename()<cr>", opts("Rename symbol"))
+            map("n", "<leader>lF", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", opts("Format code"))
+            map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts("Show code actions"))
 
-        lspconfig.pyright.setup({
-            on_attach = function(client, _)
-                client.server_capabilities.codeActionProvider = false
-            end,
-            handlers = {
-                -- diagnostics are handled by black and flake8 in ALE
-                ["textDocument/publishDiagnostics"] = function() end,
-            },
-            settings = {
-                pyright = {
-                    disableOrganizeImports = true,  -- handled by isort in ALE
-                },
-                python = {
-                    analysis = {
-                        typeCheckingMode = "off",  -- handled by mypy in ALE
-                    },
-                },
-            },
-        })
+            if client:supports_method("textDocument/formatting") then
+                vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    group = augroup,
+                    buffer = bufnr,
+                    callback = function() vim.lsp.buf.format() end,
+                })
+            end
+        end
 
-        lspconfig.typos_lsp.setup({})
-
-        -- Set key bindings
-        vim.api.nvim_create_autocmd('LspAttach', {
-            desc = 'LSP actions',
-            callback = function(event)
-                vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', {buffer = event.buf, desc = "Show documentation"})
-                vim.keymap.set('n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<cr>', {buffer = event.buf, desc = "Go to definition"})
-                vim.keymap.set('n', '<leader>lD', '<cmd>lua vim.lsp.buf.declaration()<cr>', {buffer = event.buf, desc = "Go to declaration"})
-                vim.keymap.set('n', '<leader>li', '<cmd>lua vim.lsp.buf.implementation()<cr>', {buffer = event.buf, desc = "Go to implementation"})
-                vim.keymap.set('n', '<leader>lt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', {buffer = event.buf, desc = "Go to type definition"})
-                vim.keymap.set('n', '<leader>lr', '<cmd>lua vim.lsp.buf.references()<cr>', {buffer = event.buf, desc = "Show references"})
-                vim.keymap.set('n', '<leader>ls', '<cmd>lua vim.lsp.buf.signature_help()<cr>', {buffer = event.buf, desc = "Show signature help"})
-                vim.keymap.set('n', '<leader>lR', '<cmd>lua vim.lsp.buf.rename()<cr>', {buffer = event.buf, desc = "Rename symbol"})
-                vim.keymap.set('n', '<leader>lF', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', {buffer = event.buf, desc = "Format code"})
-                vim.keymap.set('n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<cr>', {buffer = event.buf, desc = "Show code actions"})
-            end,
+        vim.lsp.config("*", {
+            capabilities = capabilities,
+            on_attach = on_attach,
         })
     end,
 }
